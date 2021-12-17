@@ -1,0 +1,46 @@
+{
+  "name": "webpack-starter-kit",
+  "version": "0.1.0",
+  "author": "Laffery",
+  "description": "webpack starter kit for react + typescript",
+  "private": false,
+  "scripts": {
+    "dev": "webpack serve --config webpack/webpack.config.dev.js",
+    "start": "webpack serve --port 3000  --config webpack/webpack.config.prod.js",
+    "build": "rm -rf dist/ && webpack build --config webpack/webpack.config.js"
+  },
+  "dependencies": {
+    "@types/react": "^17.0.37",
+    "@types/react-dom": "^17.0.11",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.5",
+    "@babel/preset-env": "^7.16.5",
+    "@babel/preset-react": "^7.16.5",
+    "@babel/preset-typescript": "^7.16.5",
+    "babel-loader": "^8.2.3",
+    "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^10.2.0",
+    "css-loader": "^6.5.1",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.4.5",
+    "react-dev-utils": "^12.0.0",
+    "style-loader": "^3.3.1",
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.5.4",
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.6.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Laffery/webpack-starter-kit"
+  },
+  "bugs": {
+    "url": "https://github.com/Laffery/webpack-starter-kit/issues"
+  },
+  "homepage": "https://github.com/Laffery/webpack-starter-kit#readme"
+}
