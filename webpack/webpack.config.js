@@ -3,6 +3,8 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const tsConfig = require('../tsconfig.json');
+const TSConfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const paths = require('./path.config');
 
 const webpackBaseConfig = {
@@ -32,6 +34,12 @@ const webpackBaseConfig = {
       filename: 'main.[fullhash:8].css'
     })
   ],
+  resolve: {
+    plugins: tsConfig.compilerOptions.baseUrl ? [new TSConfigPathsPlugin({
+      baseUrl: tsConfig.compilerOptions.baseUrl
+    })] : [],
+    extensions: ['.js', '.jsx', '.ts', '.tsx']
+  },
   optimization: {
     minimize: true,
   },
@@ -53,14 +61,7 @@ const webpackBaseConfig = {
         test: /\.tsx?$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
-          options: {
-            presets: [
-              "@babel/preset-env",
-              "@babel/preset-react",
-              "@babel/preset-typescript",
-            ],
-          },
+          loader: "ts-loader"
         },
       },
       // css
