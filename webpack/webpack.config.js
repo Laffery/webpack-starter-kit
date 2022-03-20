@@ -1,25 +1,30 @@
 // webpack base configuration
+const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const tsConfig = require('../tsconfig.json');
 const TSConfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
-const paths = require('./path.config');
+
+const workspace = path.join(__dirname, '../');
+const sourceDir = path.join(workspace, 'src');
+const outputDir = path.join(workspace, 'dist');
+const publicDir = path.join(workspace, 'public');
 
 const webpackBaseConfig = {
   mode: 'development',
   entry: {
-    app: `${paths.src}/index.tsx`,
+    app: path.join(sourceDir, 'index.tsx'),
   },
   output: {
-    path: paths.build,
+    path: outputDir,
     filename: 'index.[fullhash:8].js',
   },
   plugins: [
     new HtmlWebPackPlugin({
       title: 'Webpack Starter',
-      template: `${paths.public}/index.html`,
+      template: path.join(publicDir, 'index.html'),
       filename: 'index.html'
     }),
     new InterpolateHtmlPlugin(HtmlWebPackPlugin, {
@@ -27,7 +32,7 @@ const webpackBaseConfig = {
     }),
     new CopyWebpackPlugin({
       patterns: [
-        { from: paths.public, to: `${paths.build}/static` }
+        { from: publicDir, to: path.join(outputDir, 'static') }
       ]
     }),
     new MiniCssExtractPlugin({
@@ -47,7 +52,7 @@ const webpackBaseConfig = {
     rules: [
       // javascript
       {
-        test: /\.m?js$/,
+        test: /\.m?jsx?$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',

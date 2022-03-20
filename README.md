@@ -1,5 +1,7 @@
 # Getting Started with Webpack Starter Kit
 
+> Typescript is supported!
+
 ## Available Scripts
 
 In the project directory, you can run:
