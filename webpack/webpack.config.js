@@ -8,7 +8,7 @@ const tsConfig = require('../tsconfig.json');
 const TSConfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 const workspace = path.join(__dirname, '../');
-const sourceDir = path.join(workspace, 'src');
+const sourceDir = path.join(workspace, 'src/client');
 const outputDir = path.join(workspace, 'dist');
 const publicDir = path.join(workspace, 'public');
 
