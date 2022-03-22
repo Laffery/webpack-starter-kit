@@ -11,7 +11,9 @@ async function Html<T>({
 }): Promise<string> {
   const { props } = await getServerSideProps();
   const html = renderToString(Element(props));
-  const template = await (await fetch("http://localhost:3000")).text();
+  const template = await (
+    await fetch(`http://localhost:${process.env.PORT ?? 3000}`)
+  ).text();
   return template.replace(/<div id=\"root\"\>\<\/div\>/, html);
 }
 

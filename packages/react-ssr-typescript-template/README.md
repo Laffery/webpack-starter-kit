@@ -9,13 +9,11 @@ In the project directory, you can run:
 ### `yarn dev`
 
 Runs the app in the development mode. \
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser. \
+What's more, you can try `SSR` at the example url [http://localhost:3000/ssr](http://localhost:3000/ssr).
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
-
-What's more, a server based on Express is running on [http://localhost:3001](http://localhost:3001), which is mapped into [http://localhost:3000/api](http://localhost:3000/api). \
-Now you can try `SSR` at the example url [http://localhost:3000/api/app](http://localhost:3000/api/app).
 
 ### `yarn start`
 

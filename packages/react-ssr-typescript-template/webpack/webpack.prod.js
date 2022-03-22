@@ -13,14 +13,5 @@ module.exports = {
     historyApiFallback: true,
     open: false,
     compress: true,
-    host: '127.0.0.1',
-    port: process.env.PORT ?? 3000,
-    proxy: [{
-      context: ["/api"],
-      target: "http://localhost:3001",
-      pathRewrite: {
-        '^/api': ''
-      }
-    }]
   },
 }

@@ -1,6 +1,6 @@
 {
   "name": "@laffery/webpack-react-ssr-ts",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "author": "Laffery",
   "description": "template for webpack + react + ssr + typescript",
   "private": false,
@@ -11,16 +11,14 @@
     "ssr"
   ],
   "scripts": {
-    "dev": "node cli/dev.js",
-    "start": "node cli/start.js",
+    "dev": "concurrently -k -p name -n \"client,server,server\" -c \"yellow,green,blue\" \"yarn dev:client\" \"yarn dev:server:webpack\" \"yarn dev:server:nodemon\"",
+    "start": "nodemon dist/server/index.js",
     "build": "yarn build:client && yarn build:server",
+    "clean": "rm -rf dist && rm -rf node_modules",
     "test": "echo NO TEST MODULE FOUND",
-    "start:server": "nodemon dist/server/index.js",
-    "start:client": "webpack serve -c webpack/webpack.prod.js",
-    "dev:client": "webpack serve -c webpack/webpack.dev.js",
-    "dev:server": "node cli/dev-server.js",
+    "dev:client": "webpack -c webpack/webpack.dev.js -w",
     "dev:server:webpack": "webpack -c webpack/webpack.server.js -w",
-    "dev:server:nodemon": "wait-on -l dist/server/index.js && yarn start:server",
+    "dev:server:nodemon": "wait-on -l dist/server/index.js && yarn start",
     "build:client": "rm -rf dist && webpack build -c webpack/webpack.prod.js",
     "build:server": "rm -rf build && webpack build -c webpack/webpack.server.js"
   },
