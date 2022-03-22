@@ -1,29 +1,22 @@
 # Getting Started with Webpack Starter Kit
 
-> Typescript is supported!
+> Typescript is supported! \
+> Server Side Render is supported!
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Webpack@5
+- React@17
+- Typescript
+- SSR
 
-### `yarn dev`
+## Motivation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+As a fresh man in front-end field, lots of technology run into my eyes, such as [Next.js](https://github.com/vercel/next.js). Even though they are powerful and convenient enough for normal development, it isn't benefit to a programmer's growth in the long run.\
+For easier react development experience, I create these templates from scratch, with the latest tool chains from dev to build to production.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Available Template
 
+- [react-typescript-template](./packages/react-typescript-template/)
+- [react-ssr-typescript-template](./packages/react-ssr-typescript-template/)
 
-### `yarn start`
-
-Runs the app in the production mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-### `yarn build`
-
-Builds the app for production to the `dist` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
