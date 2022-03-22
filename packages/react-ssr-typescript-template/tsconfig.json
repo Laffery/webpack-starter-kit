@@ -18,6 +18,6 @@
     "jsx": "react-jsx",
     "typeRoots": ["src/typings"]
   },
-  "include": ["src"],
+  "include": ["src", "src/typings"],
   "exclude": ["node_modules"]
 }

@@ -1,12 +1,12 @@
 import express from "express";
-import App from "../client/App";
+import * as App from "../client/App";
 import Html from "./utils/html";
 
 const app = express();
 
 const port = process.env.PORT ?? 3001;
 app.listen(port, () => {
-  console.log("server is running on port", port);
+  console.log(`${new Date()} Server is running on http://localhost:${port}`);
 });
 
 app.get("/", (req, res) => {
@@ -14,5 +14,10 @@ app.get("/", (req, res) => {
 });
 
 app.get("/app", async (req, res) => {
-  res.end(await Html({ element: App() }));
+  res.end(
+    await Html({
+      default: App.default,
+      getServerSideProps: App.getServerSideProps,
+    })
+  );
 });
