@@ -9,6 +9,6 @@
     "target": "esnext",
     "moduleResolution": "node"
   },
-  "exclude": ["../../dist", "../client"],
-  "include": ["."]
+  "exclude": [],
+  "include": [".", "../typings/react-app-env.d.ts"]
 }

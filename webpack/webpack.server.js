@@ -2,7 +2,7 @@ const path = require("path");
 const nodeExternals = require("webpack-node-externals");
 
 const workspace = path.join(__dirname, "../");
-const outputDir = path.join(workspace, "build");
+const outputDir = path.join(workspace, "dist/server");
 const sourceDir = path.join(workspace, "src/server");
 
 module.exports = {
@@ -23,6 +23,7 @@ module.exports = {
   externals: [nodeExternals()],
   module: {
     rules: [
+      // typescript
       {
         test: /\.tsx?$/,
         use: [
@@ -34,6 +35,21 @@ module.exports = {
             },
           },
         ],
+      },
+      // css
+      {
+        test: /\.css$/,
+        use: ['css-loader'],
+      },
+      // images
+      {
+        test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
+        type: 'asset/resource'
+      },
+      // fonts and SVGs
+      {
+        test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,
+        type: 'asset/inline',
       },
     ],
   },

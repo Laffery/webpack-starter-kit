@@ -9,7 +9,7 @@ const TSConfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 const workspace = path.join(__dirname, '../');
 const sourceDir = path.join(workspace, 'src/client');
-const outputDir = path.join(workspace, 'dist');
+const outputDir = path.join(workspace, 'dist/client');
 const publicDir = path.join(workspace, 'public');
 
 const webpackBaseConfig = {
@@ -19,24 +19,32 @@ const webpackBaseConfig = {
   },
   output: {
     path: outputDir,
-    filename: 'index.[fullhash:8].js',
+    filename: 'index.[contenthash:8].js',
+    chunkFilename: 'index.[chunkhash:8].js',
   },
   plugins: [
     new HtmlWebPackPlugin({
       title: 'Webpack Starter',
       template: path.join(publicDir, 'index.html'),
-      filename: 'index.html'
+      filename: 'index.html',
+      // make sure scripts and styles are loaded in the correct urls
+      publicPath: '/'
     }),
     new InterpolateHtmlPlugin(HtmlWebPackPlugin, {
-      PUBLIC_URL: './static'
+      // make sure static assets are loaded in the correct urls
+      PUBLIC_URL: '/static'
     }),
     new CopyWebpackPlugin({
       patterns: [
-        { from: publicDir, to: path.join(outputDir, 'static') }
+        {
+          from: publicDir,
+          to: path.join(outputDir, 'static'),
+          globOptions: { ignore: [path.join(publicDir, 'index.html')] }
+        }
       ]
     }),
     new MiniCssExtractPlugin({
-      filename: 'main.[fullhash:8].css'
+      filename: 'main.[chunkhash:8].css'
     })
   ],
   resolve: {
