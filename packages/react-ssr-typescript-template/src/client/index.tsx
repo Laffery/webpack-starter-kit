@@ -1,11 +1,17 @@
-import React, { StrictMode } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
 import "./index.css";
 
-ReactDOM.hydrate(
-  <StrictMode>
+function App() {
+  const Page = require(`./pages${window.location.pathname}`).default;
+
+  console.log(window.location.pathname);
+  return <Page />;
+}
+
+ReactDOM.render(
+  <React.StrictMode>
     <App />
-  </StrictMode>,
+  </React.StrictMode>,
   document.getElementById("root")
 );

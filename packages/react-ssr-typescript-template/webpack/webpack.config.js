@@ -1,50 +1,81 @@
 // webpack base configuration
 const path = require('path');
-const HtmlWebPackPlugin = require('html-webpack-plugin');
+const glob = require('glob');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const tsConfig = require('../tsconfig.json');
 const TSConfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 const workspace = path.join(__dirname, '../');
 const sourceDir = path.join(workspace, 'src/client');
-const outputDir = path.join(workspace, 'dist/client');
+const outputDir = path.join(workspace, 'dist/static');
 const publicDir = path.join(workspace, 'public');
 
-const webpackBaseConfig = {
+const hash = process.env.NODE_ENV === 'production' ? '[chunkhash:8]' : '[contenthash:8]';
+
+/**
+ * @param {string} dirPath
+ * @param {string} patterns 
+ * @returns {Recode<string, any>}
+ */
+function getEntries(dirPath, patterns) {
+  const files = glob.sync(path.join(dirPath, patterns));
+  const entries = {};
+  files.forEach(file => {
+    const relative = path.join('/', path.relative(dirPath, file));
+    const name = relative.replace(/\/index\.(jsx?|tsx?)/g, "");
+    entries[name || '/'] = file;
+  });
+  return entries;
+}
+
+const baseConfig = {
   mode: 'development',
   entry: {
-    app: path.join(sourceDir, 'index.tsx'),
+    main: path.join(sourceDir, 'index.tsx'),
+    ...getEntries(path.join(sourceDir, 'pages'), '/**/index.@(js|jsx|ts|tsx)')
   },
   output: {
     path: outputDir,
-    filename: 'index.[contenthash:8].js',
-    chunkFilename: 'index.[chunkhash:8].js',
+    filename: (e) => {
+      if (e.chunk.name === 'main') return path.join('chunks', `main.${hash}.js`);
+      return path.join('chunks', 'pages', '[name]', `index.${hash}.js`);
+    },
+    chunkFilename: `index.${hash}.js`,
   },
   plugins: [
-    new HtmlWebPackPlugin({
-      title: 'Webpack Starter',
-      template: path.join(publicDir, 'index.html'),
-      filename: 'index.html',
-      // make sure scripts and styles are loaded in the correct urls
-      publicPath: '/'
-    }),
-    new InterpolateHtmlPlugin(HtmlWebPackPlugin, {
-      // make sure static assets are loaded in the correct urls
-      PUBLIC_URL: '/static'
+    new WebpackManifestPlugin({
+      fileName: 'build.manifest.json',
+      filter: (file) => file.isChunk,
+      generate: (seed, files) => {
+        const manifest = { scripts: {}, styles: {} };
+        files.forEach(file => {
+          const path = file.path.replace(/auto\//, '').replace(/\/+/g, '/');
+          // is script
+          if (/.*\.js/.test(file.name)) {
+            manifest.scripts[file.name.replace(/\.js/, '')] = path;
+          }
+          // is stylesheet
+          else if (/.*\.css/.test(file.name)) {
+            manifest.styles[file.name.replace(/\.css/, '')] = path;
+          }
+        });
+        return manifest;
+      }
     }),
     new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: publicDir,
-          to: path.join(outputDir, 'static'),
-          globOptions: { ignore: [path.join(publicDir, 'index.html')] }
-        }
-      ]
+      patterns: [{
+        from: publicDir,
+        to: outputDir,
+      }]
     }),
     new MiniCssExtractPlugin({
-      filename: 'main.[chunkhash:8].css'
+      filename: (e) => {
+        if (e.chunk.name === 'main') return path.join('css', `main.${hash}.css`);
+        return path.join('css', '[name]', `index.${hash}.css`)
+      }
     })
   ],
   resolve: {
@@ -55,6 +86,10 @@ const webpackBaseConfig = {
   },
   optimization: {
     minimize: true,
+    minimizer: [new TerserPlugin({
+      // no license comments
+      extractComments: false
+    })],
   },
   module: {
     rules: [
@@ -96,4 +131,4 @@ const webpackBaseConfig = {
   },
 }
 
-module.exports = webpackBaseConfig;
+module.exports = baseConfig;

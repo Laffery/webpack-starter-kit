@@ -10,7 +10,6 @@ In the project directory, you can run:
 
 Runs the app in the development mode. \
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser. \
-What's more, you can try `SSR` at the example url [http://localhost:3000/ssr](http://localhost:3000/ssr).
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
@@ -28,3 +27,16 @@ It correctly bundles React in production mode and optimizes the build for the be
 
 The build is minified and the filenames include the hashes. \
 Your app is ready to be deployed!
+
+## SSR
+
+There are several pages in the example project.
+
+- [`/`](http://localhost:3000/): homepage(SSR)
+- [`ssr`](http://localhost:3000/ssr): SSR page
+  - [`foo`](http://localhost:3000/ssr/foo): SSR sub page
+- [`csr`](http://localhost:3000/csr): CSR page
+  - [`bar`](http://localhost:3000/csr/bar): CSR sub page
+
+You can try them on their page. \
+However, the SSR pages cannot render react hooks now, so they are totally static pages, improvement is on the way coming.
