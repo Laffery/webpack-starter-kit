@@ -1,6 +1,6 @@
 {
   "name": "@laffery/webpack-react-ssr-ts",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "author": "Laffery",
   "description": "template for webpack + react + ssr + typescript",
   "private": false,
@@ -21,8 +21,8 @@
     "dev:client": "webpack -c webpack/webpack.dev.js -w",
     "dev:server:webpack": "webpack -c webpack/webpack.server.js -w",
     "dev:server:nodemon": "wait-on -l dist/server/index.js && yarn start",
-    "build:client": "rm -rf dist && webpack build -c webpack/webpack.prod.js",
-    "build:server": "rm -rf build && webpack build -c webpack/webpack.server.js"
+    "build:client": "rm -rf dist/client && webpack build -c webpack/webpack.prod.js",
+    "build:server": "rm -rf dist/server && webpack build -c webpack/webpack.server.js"
   },
   "dependencies": {
     "concurrently": "^7.0.0",
