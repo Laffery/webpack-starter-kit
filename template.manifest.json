@@ -1,0 +1,12 @@
+[
+  {
+    "name": "react-ts",
+    "path": "./packages/react-typescript-template",
+    "description": "React project in TypeScript"
+  },
+  {
+    "name": "react-ssr-ts",
+    "path": "./packages/react-ssr-typescript-template",
+    "description": "React SSR project in TypeScript"
+  }
+]
