@@ -19,7 +19,9 @@ For easier react development experience, I create these templates from scratch, 
 
 We provide a command tool named `create-app`, we recommend that you install this package globally, run with
 
-> npm i -g @laffery/webpack-starter-kit
+```sh
+npm i -g @laffery/webpack-starter-kit
+```
 
 Run `npx create-app -h` to look up usages:
 
