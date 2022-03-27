@@ -11,6 +11,7 @@ const commander = require('commander');
 const path = require('path');
 const packageJson = require('../package.json');
 const templates = require('../template.manifest.json');
+const generateGitIgnore = require('../lib/gitignore');
 
 function listTemplates() {
   console.log(chalk.green('Templates available:'));
@@ -45,18 +46,27 @@ const cmd = new commander.Command("create app")
     console.log(chalk.bold("Template selected:"), chalk.green(options.template || template));
     console.log('Start generation process ...');
 
-
+    // make sure the output directory is empty or is not existed
     if (fs.existsSync(outputPath) && fs.readdirSync(outputPath).length > 0) {
-      return console.log("Directory", chalk.bgBlack(outputPath), "is not empty, please select one of the following templates and retry.");
+      console.log("Directory",
+        chalk.bgBlack(outputPath),
+        "is not empty, please select one of the following templates and retry.");
+
+      return;
     }
 
+    // make output directory
     fs.mkdirpSync(outputPath);
 
+    // copy template files
     fs.copySync(path.join(__dirname, '../', templatePath), outputPath, {
       filter: (src, _dst) => /(\.git|build|dist|output|\*\.log)\/?/.test(src) === false
     });
 
-    console.log(chalk.green('Successful generation, enjoy coding! :)'));
+    // generate .gitignore file according to the template
+    generateGitIgnore(outputPath);
+
+    console.log(chalk.green('Generation process Successfully finished. Enjoy coding! :)'));
   });
 
 cmd.parse(process.argv);
