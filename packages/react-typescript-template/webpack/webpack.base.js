@@ -12,7 +12,7 @@ const sourceDir = path.join(workspace, 'src');
 const outputDir = path.join(workspace, 'dist');
 const publicDir = path.join(workspace, 'public');
 
-const webpackBaseConfig = {
+const baseConfig = {
   mode: 'development',
   entry: {
     app: path.join(sourceDir, 'index.tsx'),
@@ -32,7 +32,11 @@ const webpackBaseConfig = {
     }),
     new CopyWebpackPlugin({
       patterns: [
-        { from: publicDir, to: path.join(outputDir, 'static') }
+        {
+          from: publicDir, to: path.join(outputDir, 'static'), globOptions: {
+            ignore: [path.join(publicDir, 'index.html')]
+          }
+        }
       ]
     }),
     new MiniCssExtractPlugin({
@@ -88,4 +92,4 @@ const webpackBaseConfig = {
   },
 }
 
-module.exports = webpackBaseConfig;
+module.exports = baseConfig;

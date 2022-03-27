@@ -1,11 +1,11 @@
 // webpack development configuration
 const path = require('path');
-const webpackBaseConfig = require('./webpack.config');
+const baseConfig = require('./webpack.base');
 
 const workspace = path.join(__dirname, '../');
 
 module.exports = {
-  ...webpackBaseConfig,
+  ...baseConfig,
   devServer: {
     historyApiFallback: true,
     watchFiles: path.join(workspace, 'src'),
