@@ -10,5 +10,5 @@
     "moduleResolution": "node"
   },
   "exclude": [],
-  "include": [".", "../typings/react-app-env.d.ts"]
+  "include": [".", "../typings"]
 }

@@ -1,6 +1,6 @@
 // webpack development configuration
 const path = require('path');
-const baseConfig = require('./webpack.config');
+const baseConfig = require('./webpack.base');
 
 const workspace = path.join(__dirname, '../');
 

@@ -1,4 +1,4 @@
-import { SSRComponent } from "../shared/lib/ssrComponent";
+import { SSRComponent } from "app";
 
 const PUBLIC_URL = "/_static";
 

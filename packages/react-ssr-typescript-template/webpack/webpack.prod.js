@@ -1,5 +1,5 @@
 // webpack production configuration
-const baseConfig = require('./webpack.config');
+const baseConfig = require('./webpack.base');
 
 module.exports = {
   ...baseConfig,

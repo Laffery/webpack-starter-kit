@@ -33,6 +33,7 @@ function getEntries(dirPath, patterns) {
 
 const baseConfig = {
   mode: 'development',
+  devtool: 'inline-source-map',
   entry: {
     main: path.join(sourceDir, 'index.tsx'),
     ...getEntries(path.join(sourceDir, 'pages'), '/**/index.@(js|jsx|ts|tsx)')

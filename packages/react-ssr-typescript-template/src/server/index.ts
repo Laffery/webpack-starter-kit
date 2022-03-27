@@ -5,8 +5,7 @@ import path from "path";
 import queryString from "query-string";
 import urlParse from "url-parse";
 import Document, { InitializedSSRComponent } from "./document";
-import { BuildManifest } from "../shared/lib/manifest";
-import { SSRComponent } from "./../shared/lib/ssrComponent";
+import { BuildManifest, SSRComponent } from "app";
 
 const app = express();
 
@@ -37,7 +36,7 @@ app.listen(port, () => {
 
 app.get("/*", async (req, res) => {
   const { pathname, query } = urlParse(req.url);
-  console.debug(pathname, queryString.parse(query));
+  // console.debug(pathname, queryString.parse(query));
   if (
     !Object.keys(manifest.scripts).includes(pathname) ||
     !Object.keys(manifest.styles).includes(pathname)
