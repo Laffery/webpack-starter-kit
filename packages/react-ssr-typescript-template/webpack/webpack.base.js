@@ -41,7 +41,9 @@ const baseConfig = {
   output: {
     path: outputDir,
     filename: (e) => {
-      if (e.chunk.name === 'main') return path.join('chunks', `main.${hash}.js`);
+      const name = e.chunk.name;
+      if (name === 'main') return path.join('chunks', `main.${hash}.js`);
+      else if (name === '/') return path.join('chunks', 'pages', `index.${hash}.js`);
       return path.join('chunks', 'pages', '[name]', `index.${hash}.js`);
     },
     chunkFilename: `index.${hash}.js`,
@@ -74,7 +76,9 @@ const baseConfig = {
     }),
     new MiniCssExtractPlugin({
       filename: (e) => {
-        if (e.chunk.name === 'main') return path.join('css', `main.${hash}.css`);
+        const name = e.chunk.name;
+        if (name === 'main') return path.join('css', `main.${hash}.css`);
+        else if (name === '/') return path.join('css', `index.${hash}.css`)
         return path.join('css', '[name]', `index.${hash}.css`)
       }
     })
