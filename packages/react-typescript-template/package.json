@@ -1,6 +1,6 @@
 {
   "name": "@laffery/webpack-react-ts",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "author": "Laffery",
   "description": "template for webpack + react + typescript",
   "private": false,
@@ -10,16 +10,15 @@
     "typescript"
   ],
   "scripts": {
-    "dev": "webpack serve -c webpack/webpack.dev.js",
-    "start": "webpack serve --port 3000 -c webpack/webpack.prod.js",
-    "build": "rm -rf dist && webpack build -c webpack/webpack.prod.js",
+    "dev": "cross-env NODE_ENV=development && webpack serve -c webpack/webpack.dev.js",
+    "start": "cross-env NODE_ENV=production && webpack serve --port 3000 -c webpack/webpack.prod.js",
+    "build": "cross-env NODE_ENV=production && rm -rf dist && webpack build -c webpack/webpack.prod.js",
     "clean:build": "rm -rf dist",
     "clean": "rm -rf dist && rm -rf node_modules",
     "test": "echo NO TEST MODULE FOUND"
   },
   "dependencies": {
-    "@types/react": "^17.0.43",
-    "@types/react-dom": "^17.0.14",
+    "cross-env": "^7.0.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
@@ -28,6 +27,9 @@
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
     "@babel/preset-typescript": "^7.16.7",
+    "@types/node": "^17.0.23",
+    "@types/react": "^17.0.43",
+    "@types/react-dom": "^17.0.14",
     "babel-loader": "^8.2.3",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^10.2.4",

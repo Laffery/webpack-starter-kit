@@ -22,7 +22,7 @@ module.exports = {
     plugins: tsConfig.compilerOptions.baseUrl ? [new TSConfigPathsPlugin({
       baseUrl: tsConfig.compilerOptions.baseUrl
     })] : [],
-    extensions: [".ts", ".tsx", ".js"],
+    extensions: [".ts", ".tsx", ".js", "jsx"],
   },
   // don't compile node_modules
   externals: [nodeExternals()],

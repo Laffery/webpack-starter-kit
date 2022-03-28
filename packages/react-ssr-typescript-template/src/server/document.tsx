@@ -68,21 +68,27 @@ class Document {
           />
           <link rel="manifest" href={`${PUBLIC_URL}/manifest.json`} />
           <link rel="apple-touch-icon" href={`${PUBLIC_URL}/logo192.png`} />
+          <link rel="shortcut icon" href={`${PUBLIC_URL}/favicon.ico`} />
           <title>{title}</title>
           <script
             defer
             type="text/javascript"
             dangerouslySetInnerHTML={{ __html: this.generateInjectFunction() }}
           />
-          {scripts.map((script) => (
+          {scripts.map((script, index) => (
             <script
               defer
+              key={index}
               src={`${PUBLIC_URL}/${script}`}
               type="text/javascript"
             />
           ))}
-          {styles.map((href) => (
-            <link href={`${PUBLIC_URL}/${href}`} rel="stylesheet" />
+          {styles.map((stylesheet, index) => (
+            <link
+              key={index}
+              href={`${PUBLIC_URL}/${stylesheet}`}
+              rel="stylesheet"
+            />
           ))}
         </head>
         <body>
