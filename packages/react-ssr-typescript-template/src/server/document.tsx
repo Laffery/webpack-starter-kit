@@ -94,7 +94,9 @@ class Document {
   }
 
   public async renderToString() {
-    return ReactDOMServer.renderToString(await this.render());
+    return (
+      "<!DOCTYPE html>\n" + ReactDOMServer.renderToString(await this.render())
+    );
   }
 }
 

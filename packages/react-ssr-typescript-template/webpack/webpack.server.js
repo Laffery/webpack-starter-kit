@@ -1,5 +1,7 @@
 const path = require("path");
 const nodeExternals = require("webpack-node-externals");
+const TSConfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
+const tsConfig = require("../tsconfig.json");
 
 const workspace = path.join(__dirname, "../");
 const outputDir = path.join(workspace, "dist/server");
@@ -10,13 +12,16 @@ module.exports = {
   target: "node",
   devtool: "inline-source-map",
   entry: {
-    server: path.join(sourceDir, 'index.ts')
+    server: path.join(sourceDir, "index.ts")
   },
   output: {
     path: outputDir,
     filename: "index.js",
   },
   resolve: {
+    plugins: tsConfig.compilerOptions.baseUrl ? [new TSConfigPathsPlugin({
+      baseUrl: tsConfig.compilerOptions.baseUrl
+    })] : [],
     extensions: [".ts", ".tsx", ".js"],
   },
   // don't compile node_modules
@@ -39,17 +44,17 @@ module.exports = {
       // css
       {
         test: /\.css$/,
-        use: ['css-loader'],
+        use: ["css-loader"],
       },
       // images
       {
         test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
-        type: 'asset/resource'
+        type: "asset/resource"
       },
       // fonts and SVGs
       {
         test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,
-        type: 'asset/inline',
+        type: "asset/inline",
       },
     ],
   },

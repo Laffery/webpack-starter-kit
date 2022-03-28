@@ -1,9 +1,9 @@
 // webpack production configuration
-const baseConfig = require('./webpack.base');
+const baseConfig = require("./webpack.base");
 
 module.exports = {
   ...baseConfig,
-  mode: 'production',
+  mode: "production",
   performance: {
     hints: false,
     maxEntrypointSize: 512000,

@@ -51,5 +51,5 @@ app.get("/*", async (req, res) => {
     element: component,
   });
 
-  res.end("<!DOCTYPE html>\n" + (await document.renderToString()));
+  res.end(await document.renderToString());
 });
