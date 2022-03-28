@@ -1,10 +1,8 @@
-import { renderToString } from "react-dom/server";
 import express from "express";
 import fs from "fs-extra";
 import path from "path";
-import queryString from "query-string";
 import urlParse from "url-parse";
-import Document, { InitializedSSRComponent } from "./document";
+import Document from "./document";
 import { BuildManifest, SSRComponent } from "app";
 
 const app = express();
@@ -35,33 +33,23 @@ app.listen(port, () => {
 });
 
 app.get("/*", async (req, res) => {
-  const { pathname, query } = urlParse(req.url);
-  // console.debug(pathname, queryString.parse(query));
+  const { pathname } = urlParse(req.url);
   if (
     !Object.keys(manifest.scripts).includes(pathname) ||
     !Object.keys(manifest.styles).includes(pathname)
   )
-    return res.end(renderToString(Document({ Element: "404 Not Found" })));
+    return res.end("404 Not Found");
 
   const component: SSRComponent = require(`../client/pages${pathname}`);
-  const ssr = component.getServerSideProps !== undefined;
 
   const scripts = [manifest.scripts.main, manifest.scripts[pathname]];
   const styles = [manifest.styles.main];
 
-  if (ssr) {
-    // without main script
-    scripts.shift();
-  }
+  const document = new Document({
+    scripts,
+    styles,
+    element: component,
+  });
 
-  res.end(
-    "<!DOCTYPE html>\n" +
-      renderToString(
-        Document({
-          scripts,
-          styles,
-          Element: await InitializedSSRComponent(component),
-        })
-      )
-  );
+  res.end("<!DOCTYPE html>\n" + (await document.renderToString()));
 });

@@ -1,17 +1,36 @@
-import React from "react";
+import React, { createContext, useContext } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 
-function App() {
-  const Page = require(`./pages${window.location.pathname}`).default;
+const Context = createContext({ props: {} });
 
-  console.log(window.location.pathname);
-  return <Page />;
+const getInitialContextValue = () => {
+  return window && window.SSR_DATA ? window.SSR_DATA : { props: {} };
+};
+
+function Page() {
+  const { props } = useContext(Context);
+  const Page = require(`./pages${window.location.pathname}`).default;
+  return <Page {...props} />;
 }
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById("root")
-);
+function App() {
+  const initialContextValue = getInitialContextValue();
+  return (
+    <React.StrictMode>
+      <Context.Provider value={initialContextValue}>
+        <Page />
+      </Context.Provider>
+    </React.StrictMode>
+  );
+}
+
+function render() {
+  const container = document.getElementById("root");
+
+  if (window && window.SSR) {
+    ReactDOM.hydrate(<App />, container);
+  } else ReactDOM.render(<App />, container);
+}
+
+render();

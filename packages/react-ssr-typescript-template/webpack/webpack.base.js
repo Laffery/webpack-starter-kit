@@ -31,6 +31,15 @@ function getEntries(dirPath, patterns) {
   return entries;
 }
 
+function trim(path) {
+  if (typeof path === 'string') {
+    if (path.startsWith('/')) {
+      return path.substring(1);
+    }
+  }
+  return path;
+}
+
 const baseConfig = {
   mode: 'development',
   devtool: 'inline-source-map',
@@ -43,8 +52,7 @@ const baseConfig = {
     filename: (e) => {
       const name = e.chunk.name;
       if (name === 'main') return path.join('chunks', `main.${hash}.js`);
-      else if (name === '/') return path.join('chunks', 'pages', `index.${hash}.js`);
-      return path.join('chunks', 'pages', '[name]', `index.${hash}.js`);
+      return path.join('chunks', (name === '/') ? 'pages' : 'pages[name]', `index.${hash}.js`);
     },
     chunkFilename: `index.${hash}.js`,
   },
@@ -78,10 +86,9 @@ const baseConfig = {
       filename: (e) => {
         const name = e.chunk.name;
         if (name === 'main') return path.join('css', `main.${hash}.css`);
-        else if (name === '/') return path.join('css', `index.${hash}.css`)
-        return path.join('css', '[name]', `index.${hash}.css`)
+        return path.join((name === '/') ? 'css' : 'css[name]', `index.${hash}.css`)
       }
-    })
+    }),
   ],
   resolve: {
     plugins: tsConfig.compilerOptions.baseUrl ? [new TSConfigPathsPlugin({

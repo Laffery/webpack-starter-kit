@@ -1,6 +1,6 @@
 {
   "name": "@laffery/webpack-react-ssr-ts",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "author": "Laffery",
   "description": "template for webpack + react + ssr + typescript",
   "private": false,
@@ -30,9 +30,9 @@
     "fs-extra": "^10.0.1",
     "node-fetch": "~2.6.7",
     "nodemon": "^2.0.15",
-    "query-string": "^7.1.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "serialize-javascript": "^6.0.0",
     "url-parse": "^1.5.10",
     "wait-on": "^6.0.1"
   },
@@ -46,6 +46,7 @@
     "@types/node-fetch": "~2.6.1",
     "@types/react": "^17.0.43",
     "@types/react-dom": "^17.0.14",
+    "@types/serialize-javascript": "^5.0.2",
     "@types/url-parse": "^1.4.8",
     "babel-loader": "^8.2.3",
     "clean-webpack-plugin": "^4.0.0",

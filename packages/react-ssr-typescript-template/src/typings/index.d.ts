@@ -17,3 +17,8 @@ declare module "app" {
     getServerSideProps?: GetServerSideProps;
   }
 }
+
+declare interface Window {
+  SSR?: boolean;
+  SSR_DATA?: { props: { [key: string]: any } };
+}
