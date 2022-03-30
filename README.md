@@ -6,7 +6,7 @@
 ## Features
 
 - Webpack@5
-- React@17
+- React@17 / React@18
 - Typescript
 - SSR
 
@@ -46,5 +46,7 @@ Now you can feel free to run `npx create-app my-app` to create you own app and e
 
 - [react-ts](./packages/react-typescript-template/)
 - [react-ssr-ts](./packages/react-ssr-typescript-template/)
+- [react18-ts](./packages/react18-typescript-template/)
+- [react18-ssr-ts](./packages/react18-ssr-typescript-template/)
 
 You can see more details in the [manifest file](./template.manifest.json)

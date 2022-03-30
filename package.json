@@ -1,6 +1,6 @@
 {
   "name": "@laffery/webpack-starter-kit",
-  "version": "0.3.8",
+  "version": "0.3.9",
   "author": "Laffery",
   "description": "webpack starter kit for react + typescript",
   "private": false,

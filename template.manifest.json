@@ -2,11 +2,21 @@
   {
     "name": "react-ts",
     "path": "./packages/react-typescript-template",
-    "description": "React project in TypeScript"
+    "description": "React17 project in TypeScript"
   },
   {
     "name": "react-ssr-ts",
     "path": "./packages/react-ssr-typescript-template",
-    "description": "React SSR project in TypeScript"
+    "description": "React17 SSR project in TypeScript"
+  },
+  {
+    "name": "react18-ts",
+    "path": "./packages/react18-typescript-template",
+    "description": "React18 project in TypeScript"
+  },
+  {
+    "name": "react18-ssr-ts",
+    "path": "./packages/react18-ssr-typescript-template",
+    "description": "React18 SSR project in TypeScript"
   }
 ]
