@@ -1,19 +1,19 @@
 // webpack base configuration
-const path = require('path');
-const glob = require('glob');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
-const tsConfig = require('../tsconfig.json');
-const TSConfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const path = require("path");
+const glob = require("glob");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
+const tsConfig = require("../tsconfig.json");
+const TSConfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
-const workspace = path.join(__dirname, '../');
-const sourceDir = path.join(workspace, 'src/client');
-const outputDir = path.join(workspace, 'dist/static');
-const publicDir = path.join(workspace, 'public');
+const workspace = path.join(__dirname, "../");
+const sourceDir = path.join(workspace, "src/client");
+const outputDir = path.join(workspace, "dist/static");
+const publicDir = path.join(workspace, "public");
 
-const hash = process.env.NODE_ENV === 'production' ? '[chunkhash:8]' : '[contenthash:8]';
+const hash = process.env.NODE_ENV === "production" ? "[chunkhash:8]" : "[contenthash:8]";
 
 /**
  * @param {string} dirPath
@@ -24,53 +24,45 @@ function getEntries(dirPath, patterns) {
   const files = glob.sync(path.join(dirPath, patterns));
   const entries = {};
   files.forEach(file => {
-    const relative = path.join('/', path.relative(dirPath, file));
-    const name = relative.replace(/\/index\.(jsx?|tsx?)/g, "");
-    entries[name || '/'] = file;
+    const relative = path.relative(dirPath, file);
+    const entryName = path.join(path.sep, relative.replace(/((\/|\\)?index)?\.(jsx?|tsx?)/g, ""));
+    entries[entryName] = file;
   });
   return entries;
 }
 
-function trim(path) {
-  if (typeof path === 'string') {
-    if (path.startsWith('/')) {
-      return path.substring(1);
-    }
-  }
-  return path;
-}
-
 const baseConfig = {
-  mode: 'development',
-  devtool: 'inline-source-map',
+  mode: "development",
+  devtool: "inline-source-map",
   entry: {
-    main: path.join(sourceDir, 'index.tsx'),
-    ...getEntries(path.join(sourceDir, 'pages'), '/**/index.@(js|jsx|ts|tsx)')
+    main: path.join(sourceDir, "index.tsx"),
+    ...getEntries(path.join(sourceDir, "pages"), "/**/index.@(js|jsx|ts|tsx)"),
+    ...getEntries(path.join(sourceDir, "pages"), "/*.@(js|jsx|ts|tsx)")
   },
   output: {
     path: outputDir,
     filename: (e) => {
       const name = e.chunk.name;
-      if (name === 'main') return path.join('chunks', `main.${hash}.js`);
-      return path.join('chunks', (name === '/') ? 'pages' : 'pages[name]', `index.${hash}.js`);
+      if (name === "main") return path.join("chunks", `main.${hash}.js`);
+      return path.join("chunks", (name === path.sep) ? "pages" : "pages[name]", `index.${hash}.js`);
     },
     chunkFilename: `index.${hash}.js`,
   },
   plugins: [
     new WebpackManifestPlugin({
-      fileName: 'build.manifest.json',
+      fileName: "build.manifest.json",
       filter: (file) => file.isChunk,
-      generate: (seed, files) => {
+      generate: (_seed, files) => {
         const manifest = { scripts: {}, styles: {} };
         files.forEach(file => {
-          const path = file.path.replace(/auto\//, '').replace(/\/+/g, '/');
+          const path = file.path.replace(/auto(\/|\\)/, "").replace(/(\/|\\)+/g, "/");
           // is script
           if (/.*\.js/.test(file.name)) {
-            manifest.scripts[file.name.replace(/\.js/, '')] = path;
+            manifest.scripts[file.name.replace(/\.js/, "")] = path;
           }
           // is stylesheet
           else if (/.*\.css/.test(file.name)) {
-            manifest.styles[file.name.replace(/\.css/, '')] = path;
+            manifest.styles[file.name.replace(/\.css/, "")] = path;
           }
         });
         return manifest;
@@ -85,8 +77,8 @@ const baseConfig = {
     new MiniCssExtractPlugin({
       filename: (e) => {
         const name = e.chunk.name;
-        if (name === 'main') return path.join('css', `main.${hash}.css`);
-        return path.join((name === '/') ? 'css' : 'css[name]', `index.${hash}.css`)
+        if (name === "main") return path.join("css", `main.${hash}.css`);
+        return path.join((name === path.sep) ? "css" : "css[name]", `index.${hash}.css`)
       }
     }),
   ],
@@ -94,7 +86,7 @@ const baseConfig = {
     plugins: tsConfig.compilerOptions.baseUrl ? [new TSConfigPathsPlugin({
       baseUrl: tsConfig.compilerOptions.baseUrl
     })] : [],
-    extensions: ['.js', '.jsx', '.ts', '.tsx']
+    extensions: [".js", ".jsx", ".ts", ".tsx"]
   },
   optimization: {
     minimize: true,
@@ -110,9 +102,9 @@ const baseConfig = {
         test: /\.m?jsx?$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
+          loader: "babel-loader",
           options: {
-            presets: ['@babel/preset-env']
+            presets: ["@babel/preset-env"]
           }
         }
       },
@@ -127,17 +119,17 @@ const baseConfig = {
       // css
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
       // images
       {
         test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
-        type: 'asset/resource'
+        type: "asset/resource"
       },
       // fonts and SVGs
       {
         test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,
-        type: 'asset/inline',
+        type: "asset/inline",
       },
     ]
   },

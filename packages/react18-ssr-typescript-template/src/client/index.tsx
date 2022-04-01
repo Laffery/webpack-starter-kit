@@ -10,8 +10,8 @@ const getInitialContextValue = () => {
 
 function Page() {
   const { props } = useContext(Context);
-  const Page = require(`./pages${window.location.pathname}`).default;
-  return <Page {...props} />;
+  const Component = require(`./pages${window.location.pathname}`).default;
+  return <Component {...props} />;
 }
 
 function App() {
