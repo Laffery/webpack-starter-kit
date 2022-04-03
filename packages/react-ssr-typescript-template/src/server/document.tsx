@@ -1,6 +1,5 @@
 import { SSRComponent } from "app";
 import ReactDOMServer from "react-dom/server";
-import serialize from "serialize-javascript";
 
 const PUBLIC_URL = "/_static";
 
@@ -48,7 +47,7 @@ class Document {
     return `
       (function () {
         window.SSR = true;
-        window.SSR_DATA = ${serialize(this.ssr_data)};
+        window.SSR_DATA = ${JSON.stringify(this.ssr_data)};
       })()
     `;
   }
