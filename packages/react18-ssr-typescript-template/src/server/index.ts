@@ -3,6 +3,7 @@ import fs from "fs-extra";
 import path from "path";
 import urlParse from "url-parse";
 import Document from "./document";
+import services from "./services";
 import { BuildManifest, SSRComponent } from "app";
 
 const app = express();
@@ -24,9 +25,8 @@ app.use("/_static", async (req, res, next) => {
   });
 });
 
-app.use("/api", async (req, res) => {
-  return res.end("Hello Api Caller");
-});
+// serverless api
+app.use("/api", services);
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
@@ -34,14 +34,10 @@ app.listen(port, () => {
 
 app.get("/*", async (req, res) => {
   const { pathname } = urlParse(req.url);
-  if (
-    !Object.keys(manifest.scripts).includes(pathname) ||
-    !Object.keys(manifest.styles).includes(pathname)
-  )
+  if (!Object.keys(manifest.scripts).includes(pathname))
     return res.end("404 Not Found");
 
   const component: SSRComponent = require(`../client/pages${pathname}`);
-
   const scripts = [manifest.scripts.main, manifest.scripts[pathname]];
   const styles = [manifest.styles.main];
 

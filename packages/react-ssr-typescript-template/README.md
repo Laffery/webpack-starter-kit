@@ -67,3 +67,14 @@ As the above page says, you will see "CSR" on the page while the page is rendere
 Similar to `Next.js`, we also have a file-system based router built on the concept of pages.
 When a file is added to the pages directory, it's automatically available as a route.
 The files inside the pages directory can be used to define most common patterns.
+
+### Serverless API is supported
+
+Write your API handlers in `server/services`, then visit `http://localhost:3000/api/echo`
+
+```ts
+router.get("/echo", (req, res) => {
+    return res.end("hello world");
+  });
+// hello world
+```

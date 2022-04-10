@@ -3,6 +3,7 @@ import fs from "fs-extra";
 import path from "path";
 import urlParse from "url-parse";
 import Document from "./document";
+import services from "./services";
 import { BuildManifest, SSRComponent } from "app";
 
 const app = express();
@@ -24,9 +25,8 @@ app.use("/_static", async (req, res, next) => {
   });
 });
 
-app.use("/api", async (req, res) => {
-  return res.end("Hello Api Caller");
-});
+// serverless api
+app.use("/api", services);
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
