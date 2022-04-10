@@ -1,0 +1,24 @@
+{
+  "folders": [
+    {
+      "path": ".",
+      "name": "Root"
+    },
+    {
+      "path": "packages/react-typescript-template",
+      "name": "react-ts"
+    },
+    {
+      "path": "packages/react18-typescript-template",
+      "name": "react18-ts"
+    },
+    {
+      "path": "packages/react-ssr-typescript-template",
+      "name": "react-ssr-ts"
+    },
+    {
+      "path": "packages/react18-ssr-typescript-template",
+      "name": "react18-ssr-ts"
+    }
+  ]
+}

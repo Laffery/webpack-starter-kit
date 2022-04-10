@@ -12,3 +12,5 @@
 config.gypi
 CVS
 npm-debug.log
+pnpm-lock.yaml
+*.code-workspace
