@@ -4,7 +4,6 @@ import path from "path";
 import urlParse from "url-parse";
 import Document from "./document";
 import services from "./services";
-import { BuildManifest, SSRComponent } from "app";
 
 const app = express();
 

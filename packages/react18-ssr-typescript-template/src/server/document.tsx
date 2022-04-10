@@ -1,5 +1,6 @@
-import { SSRComponent } from "app";
+import React from "react";
 import ReactDOMServer from "react-dom/server";
+import { Context } from "shared/context";
 
 const PUBLIC_URL = "/_static";
 
@@ -8,6 +9,7 @@ interface DocumentProps {
   scripts: string[];
   styles: string[];
   element: SSRComponent;
+  location: string;
 }
 
 class Document {
@@ -15,6 +17,7 @@ class Document {
   private scripts: string[];
   private styles: string[];
   private element: SSRComponent;
+  private location: string;
   private ssr: boolean = false;
   private ssr_data: { props: { [key: string]: any } } = { props: {} };
 
@@ -22,12 +25,14 @@ class Document {
     title = "React App",
     scripts = [],
     styles = [],
+    location = "/",
     element = { default: () => <div>Loading...</div> },
   }: Partial<DocumentProps>) {
     this.title = title;
     this.scripts = scripts;
     this.styles = styles;
     this.element = element;
+    this.location = location;
     this.ssr = element.getServerSideProps !== undefined;
   }
 
@@ -37,9 +42,16 @@ class Document {
 
     // Server side data fetching
     const { props } = await getServerSideProps();
-    this.ssr_data = { props };
+    const ctx = { props, location: this.location };
+    this.ssr_data = ctx;
 
-    return <App {...props} />;
+    return (
+      <React.StrictMode>
+        <Context.Provider value={ctx}>
+          <App {...props} />
+        </Context.Provider>
+      </React.StrictMode>
+    );
   }
 
   protected generateInjectFunction(): string {

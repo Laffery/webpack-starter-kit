@@ -1,6 +1,6 @@
 {
   "name": "@laffery/webpack-react18-ts",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "Laffery",
   "description": "template for webpack + react18 + typescript",
   "private": false,

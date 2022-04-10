@@ -1,4 +1,3 @@
-import { GetServerSideProps } from "app";
 import HelloWorld from "@/components/hello-world";
 
 function Homepage(props: { mode?: "CSR" | "SSR" }) {

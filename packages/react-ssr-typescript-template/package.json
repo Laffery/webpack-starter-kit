@@ -1,6 +1,6 @@
 {
   "name": "@laffery/webpack-react-ssr-ts",
-  "version": "0.3.8",
+  "version": "0.3.9",
   "author": "Laffery",
   "description": "template for webpack + react + ssr + typescript",
   "private": false,
@@ -12,15 +12,15 @@
   ],
   "types": "src/typings/*",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development concurrently -k -p name -n \"client,server,server\" -c \"yellow,green,blue\" \"yarn dev:client\" \"yarn dev:server:webpack\" \"yarn dev:server:nodemon\"",
+    "dev": "cross-env NODE_ENV=development concurrently -k -p name -n \"client,server,server\" -c \"yellow,green,blue\" \"npm run dev:client\" \"npm run dev:server:webpack\" \"npm run dev:server:nodemon\"",
     "start": "cross-env NODE_ENV=production nodemon dist/server/index.js",
-    "build": "cross-env NODE_ENV=production yarn build:client && yarn build:server",
+    "build": "cross-env NODE_ENV=production npm run build:client && npm run build:server",
     "clean:build": "rm -rf dist",
     "clean": "rm -rf dist && rm -rf node_modules",
     "test": "echo NO TEST MODULE FOUND",
     "dev:client": "webpack -c webpack/webpack.dev.js -w",
     "dev:server:webpack": "webpack -c webpack/webpack.server.js -w",
-    "dev:server:nodemon": "wait-on -l dist/server/index.js && yarn start",
+    "dev:server:nodemon": "wait-on -l dist/server/index.js && npm run start",
     "build:client": "rm -rf dist/client && webpack build -c webpack/webpack.prod.js",
     "build:server": "rm -rf dist/server && webpack build -c webpack/webpack.server.js"
   },
