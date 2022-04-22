@@ -1,9 +1,9 @@
 {
   "name": "@laffery/webpack-starter-kit",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "author": "Laffery",
-  "description": "webpack starter kit for react + typescript",
   "private": false,
+  "description": "webpack starter kit for react + typescript",
   "keywords": [
     "webpack",
     "react",
@@ -12,6 +12,11 @@
   ],
   "scripts": {
     "test": "node ./bin/index.js app -t react-ts"
+  },
+  "dependencies": {
+    "chalk": "~4.1.2",
+    "commander": "^9.2.0",
+    "fs-extra": "^10.1.0"
   },
   "bin": {
     "create-app": "./bin/index.js"
@@ -24,10 +29,5 @@
   "bugs": {
     "url": "https://github.com/Laffery/webpack-starter-kit/issues"
   },
-  "homepage": "https://github.com/Laffery/webpack-starter-kit#readme",
-  "dependencies": {
-    "chalk": "~4.1.2",
-    "commander": "^9.1.0",
-    "fs-extra": "^10.0.1"
-  }
+  "homepage": "https://github.com/Laffery/webpack-starter-kit#readme"
 }

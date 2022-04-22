@@ -17,11 +17,22 @@ For easier react development experience, I create these templates from scratch, 
 
 ## CLI
 
+### Install
+
 We provide a command tool named `create-app`, we recommend that you install this package globally, run with
 
 ```sh
+# npm
 npm i -g @laffery/webpack-starter-kit
+
+# or yarn
+yarn add -g @laffery/webpack-starter-kit
+
+# or pnpm
+pnpm add -g @laffery/webpack-starter-kit
 ```
+
+### Create app
 
 Run `npx create-app -h` to look up usages:
 
