@@ -7,7 +7,7 @@
 
 - Webpack@5
 - React@17 / React@18
-- Typescript
+- TypeScript
 - SSR
 
 ## Motivation
@@ -18,8 +18,6 @@ For easier react development experience, I create these templates from scratch, 
 ## CLI
 
 ### Install
-
-We provide a command tool named `create-app`, we recommend that you install this package globally, run with
 
 ```sh
 # npm
@@ -34,7 +32,7 @@ pnpm add -g @laffery/webpack-starter-kit
 
 ### Create app
 
-Run `npx create-app -h` to look up usages:
+Run `npx create-webpack-app -h` to look up usages:
 
 ```txt
 Usage: create app <name> [options]
@@ -51,7 +49,18 @@ Options:
   -h, --help               display help for command
 ```
 
-Now you can feel free to run `npx create-app my-app` to create you own app and enjoy coding!
+Now you can feel free to run the following command to create you own app and enjoy coding!
+
+```sh
+# npm
+npm create @laffery/webpack-app@latest
+
+# or yarn
+yarn create @laffery/webpack-app
+
+# or pnpm
+pnpm create @laffery/webpack-app
+```
 
 ## Available Templates
 

@@ -1,6 +1,6 @@
 {
-  "name": "@laffery/webpack-starter-kit",
-  "version": "0.4.1",
+  "name": "@laffery/create-webpack-app",
+  "version": "0.5.1",
   "author": "Laffery",
   "private": false,
   "description": "webpack starter kit for react + typescript",
@@ -15,11 +15,11 @@
   },
   "dependencies": {
     "chalk": "~4.1.2",
-    "commander": "^9.2.0",
+    "commander": "^9.4.0",
     "fs-extra": "^10.1.0"
   },
   "bin": {
-    "create-app": "./bin/index.js"
+    "create-webpack-app": "./bin/index.js"
   },
   "license": "MIT",
   "repository": {
